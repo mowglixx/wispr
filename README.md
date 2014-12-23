@@ -15,7 +15,7 @@ Database {
   approved int(11) <br>
   blocked int(11)</li>
 <li><strong>Table</strong>: img_usr<br>
-  Columns:<br>
+  <strong>Columns</strong>:<br>
   pic_id int(11) AI PK <br>
   username varchar(45) <br>
   imgname text <br>
@@ -33,6 +33,7 @@ Database {
   profilepic text <br>
   disp_name text <br>
   opt_promode int(11)
-  </li></ul>
-  <br>}</li></ul>
+  </li>
+  </ul>
+  }</li></ul>
   
