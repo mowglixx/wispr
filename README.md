@@ -1,4 +1,4 @@
-<h1>wispr <small>beta</small></h1>
+<h1>wispr <em>beta</em></h1>
 
 open source social network for blogging and meeting friends based on bootstrap... for now.
 
