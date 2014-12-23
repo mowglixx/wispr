@@ -1,7 +1,7 @@
-wispr
+wispr<small>beta</small>
 =====
 
-open source social network for blogging and meeting friends
+open source social network for blogging and meeting friends based on bootstrap... for now.
 
 For first time setup, copy all files to your server via your prefered method and create the database and tables as below
 
