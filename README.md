@@ -4,7 +4,7 @@ wispr
 open source social network for blogging and meeting friends
 
 For first time setup, copy all files to your server via your prefered method and create the database and tables as below
-<pre>
+
 <ul>
 <li>
 Database {
@@ -37,4 +37,3 @@ Database {
   </li>
   </ul>
   }</li></ul>
-  </pre>
