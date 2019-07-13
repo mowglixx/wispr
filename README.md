@@ -1,12 +1,24 @@
 <h1>wispr <em>beta</em></h1>
 
-open source social network for blogging and meeting friends based on bootstrap... for now.
+<p>open source social network for blogging and meeting friends based on bootstrap... for now.</p>
 
-For first time setup, copy all files to your server via your prefered method and create the database and tables as below
+<p>For first time setup, copy all files to your server via your prefered method and create the database and tables as below</p>
+
+<h2>ESSENTIAL</h2> 
+<p>create a <code>.htaccess</code> file in the root of the site with the following contents:</p>
+<pre>
+RewriteEngine On
+RewriteRule ^([a-zA-Z0-9_-]+)$ profile.php?id=$1
+RewriteRule ^([a-zA-Z0-9_-]+)/$ profile.php?id=$1
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+DirectoryIndex index.php
+ErrorDocument 404 /404.php
+</pre>
 
 <ul>
 <li>
-Database {
+<h2>Database</h2>
 <ul>
 <li><strong>Table</strong>: friends<br>
   <strong>Columns</strong>:<br>

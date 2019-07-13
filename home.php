@@ -9,7 +9,11 @@ if(empty($_SESSION['user']))
 	elseif(!empty($profile['profilepic'])) {
 		$propic = $profile['profilepic'];
 		};
-
+if($_SERVER['HTTPS'] == "on"){
+    $http = "https://";
+}else{
+    $http = "http://";
+};
       
       ?>
 <!DOCTYPE html>
@@ -115,7 +119,7 @@ body {
 </p>
 			<p>Email: <a href="mailto:<?php echo $profile['email']; ?>"><?php echo $profile['email']; ?></a><br>
 			</p>
-			<span class="hidden-xs" ><label>Share</label> <input value="http://wisp-r.com/<?php echo $user['username']; ?>"></span>
+			<span class="hidden-xs" ><label>Share</label> <input value="<?php echo $http . $_SERVER['HTTP_HOST'] . "/" . $user['username']; ?>"></span>
 			</div>
 	</div>
 	</div>
