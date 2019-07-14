@@ -1,10 +1,10 @@
 <h1>wispr <em>beta</em></h1>
 
-<p>open source social network for blogging and meeting friends based on bootstrap... for now.</p>
+<p>Open source social network for blogging and meeting friends using <strike>bootstrap</strike> <a href="https://materializecss.com">Materialize css</a>... for now.</p>
 
 <p>For first time setup, copy all files to your server via your prefered method and create the database and tables as below</p>
 
-<h2>ESSENTIAL</h2> 
+<h2><em>ESSENTIAL</em></h2> 
 <p>create a <code>.htaccess</code> file in the root of the site with the following contents:</p>
 <pre>
 RewriteEngine On
