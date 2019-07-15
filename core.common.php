@@ -79,5 +79,5 @@
 	$user = $_SESSION['user'];
     // SQL Stuff
 	$id = $user['username'];
-    $stmt = $db->query("SELECT id, username, email, about, title, profilepic, disp_name, opt_promode FROM users WHERE username = '{$id}'");
+    $stmt = $db->query("SELECT id, username, about, title, profilepic, disp_name, opt_promode FROM users WHERE username = '{$id}'");
  	$profile = $stmt->fetch(PDO::FETCH_ASSOC);
