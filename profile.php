@@ -1,6 +1,6 @@
 <?php 
     require('core.common.php'); 
-    $getid = $_GET['id'];
+    $getid = htmlspecialchars($_GET['id'], ENT_QUOTES);
     $stmt = $db->query("SELECT id, username, about, title, profilepic, disp_name FROM users WHERE username = '{$getid}'");
  	$viewprofile = $stmt->fetch(PDO::FETCH_ASSOC);
  	if(empty($viewprofile['id'])){

@@ -1,222 +1,172 @@
-<? require('core.common.php'); 
-if(empty($_SESSION['user'])) 
-    { header("Location: index.php"); 
-      die('You need to log in...');};
+<?php
+require('core.common.php'); 
+// Check if user is logged in
+    if(empty($_SESSION['user'])) 
+        { header("Location: index.php"); 
+    die('You need to log in...');};
       
-      	//Empty Profile pic, displays default display pic
-	if(empty($profile['profilepic'])){
-		$propic = "img/DefaultUserImg.jpg";}
-	elseif(!empty($profile['profilepic'])) {
-		$propic = $profile['profilepic'];
-		};
-if($_SERVER['HTTPS'] == "on"){
-    $http = "https://";
-}else{
-    $http = "http://";
-};
-      
-      ?>
+//Empty Profile pic, displays default display pic
+    if(empty($profile['profilepic'])){
+        $propic = "img/DefaultUserImg.jpg";}
+    elseif(!empty($profile['profilepic'])) {
+        $propic = $profile['profilepic'];
+    };
+// check http/https protocol for urls
+    if($_SERVER['HTTPS'] == "on"){
+        $http = "https://";
+    }else{
+        $http = "http://";
+    };
+?>
 <!DOCTYPE html>
-<html class="no-js">
-    <!-- #BeginTemplate "Template.dwt" -->
+<html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <!-- #BeginEditable "title" -->
 		<title>Wispr - <?php print $user['username']; ?></title>
-		<!-- #EndEditable -->
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-
-body {
-                padding-top: 50px;
-                padding-bottom: 20px;
-            }
-
-</style>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/jasny-bootstrap.min.css">
-        <link rel="stylesheet" href="css/jasny-bootstrap.css">
-        <link rel="stylesheet" href="css/main.css">
-        <script src="js/jasny-bootstrap.min.js"></script>
+        <!--Let browser know website is optimized for mobile-->
+            <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    
         
+        <!--Jquery-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        
+        <!--Import Google Icon Font-->
+            <link href="css/icons.css" rel="stylesheet">
+
+        <!--Import materialize css and js files-->
+            <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+            <script src="js/materialize.min.js"></script>
+
     </head>
     <body>
-    
+        <ul id="profilemenu" class="dropdown-content">
+            <li><a href="editprofile.php">Edit Profile</a></li>
+            <li><a href="/<?php print $user['username']; ?>"><?php print $user['username']; ?></a></li>
+            <li class="divider"></li>
+            <li><a href="messages.php">Messages</a></li>
+            <li><a href="logout.php">Logout</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper blue">
+                <div class="container">
+                    <a class="brand-logo center" href="home.php">Wispr <em>Beta</em></a>
+                    <ul class="right">
+                        <li><a href="index.php"> Home</a></li>
+                        <li><a class="dropdown-trigger" href="#!" data-target="profilemenu"><?php print $user['username']; ?><i class="material-icons right">arrow_drop_down</i></a></li>
+                    </ul>
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="home.php">Wispr <span class="label label-info">Beta</span></a>
+                    <!--
+                        Fucks stuff up for navbar WIP
+                        <form action="search.php" method="get">
+                            <div class="input-field">
+                                <input id="search" type="search" name="q" required>
+                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                                <i class="material-icons">close</i>
+                            </div>
+                    </form> 
+                    -->
+                </div>
+            </div>
+        </nav>
+        <main>
+        <?php 
+        // Uploads toasts
+            if($_GET['i'] == "successp"){
+		        echo "<script>M.toast({html: 'Image Uploaded'});</script>";
+            }elseif($_GET['i'] == "failp"){
+		        echo "<script>M.toast({html: 'Something went wrong', classes: 'red'});</script>";
+            };
+        ?>
+        <div class="container">
+            <div class="row">
+                <!--[ COL1 ]-->	
+                    <div class="col s12 m4">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="<?php echo $profile['profilepic'];?>" alt="<?php print $user['username']; ?>'s Display Picture">
+                                <span class="card-title"><?php print $user['username']; ?></span>
+                                <a class="btn-floating halfway-fab waves-effect waves-light blue modal-trigger tooltipped" data-position="left" data-tooltip="Change proile picture" href="#chg-prof-pic"><i class="material-icons">edit</i></a>    
+                            </div>
+                            <div class="card-content">
+                                text here
+                            </div>
+                        </div>
+                    </div>
+                <!--[ COL2 ]-->
+                    <div class="col s12 m8">
+                        <div class="card">
+                            <div class="card-content">
+                                <h4>Profile</h4>
+                                <?php print $user['username']; ?><br>
+                                <a href="editprofile.php">Edit Profile</a><br>
+                                <a href="/<?php print $user['username']; ?>">View Profile</a><br>
+                                <a href="messages.php">Messages</a><br>
+                                <a href="logout.php">Logout</a><br>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <!-- Upload pictures Modal  -->
+                <div id="chg-prof-pic" class="modal">
+                    <div class="row modal-content">
+                        <h4>Change Your Profile Picture</h4>
+                        <div class="col s12 m4" title="current display picture">
+                            <img class="responsive-img" alt="Current Display Picture" src="<?php echo $profile['profilepic'];?>">
+                        </div>
+                        <div class="col s12 m8">
+                            <form action="uploading.php?rdr=home" method="post" enctype="multipart/form-data" class = "col s12">
+                                <div class = "row">
+                                    <label>Upload Picture</label>
+                                    <div class = "file-field input-field">
+                                        <div class = "btn blue">
+                                            <span>Browse</span>
+                                            <input name="chg-propic" type="file" accept="img/*">
+                                        </div>
+                                        <div class = "file-path-wrapper">
+                                            <input class="file-path validate" type = "text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="caption">Caption</label><br>
+                                        <input placeholder="Type a Caption for the image here..." name="caption"><br>
+                                        <label for="chg-dp">
+                                            <input type="checkbox" value="1" id="chg-dp" name="chg-dp">
+                                            <span>Make my display picture</span>
+                                        </label><br>
+                                        <button class="btn blue left" type="submit">Upload</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <!--End modal-->
         </div>
-        <div class="navbar-collapse collapse">
-        <div class="center-block">
-        <form action="search.php" method="get" class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <input type="text" class="form-control col-lg-12 col-md-12 col-sm-12 disabled" placeholder="Search..." name="q" disabled="disabled">
-        </div>
-      </form>
-      </div>
-         <ul class="nav navbar-nav navbar-right">
-         <li><a href="index.php"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-         <?php if(!empty($user)): ?>
-		 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <?php echo $profile['username'];?> <span class="caret"></span></a>
-	         <ul class="dropdown-menu" role="menu">
-		         <li><a href="editprofile.php"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
-		         <li><a href="/<?php echo $profile['username'];?>"><span class="glyphicon glyphicon-user"></span> View Profile</a></li>
-		         <li class="divider"></li>
-		         <li><a href="messages.php"><del><span class="glyphicon glyphicon-envelope"></span> Messages</del></a></li>
-		         <li><a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a></li>
-	         </ul></li>
-	     <?php endif;?>
-         
-         </ul>
-         </div><!--/.navbar-collapse -->
-      </div>
-    </div>
-    
-    <div class="container">
-    <div class="row">
-    <p>&nbsp;</p>
-    <div id="ads" class="col-md-5 col-md-offset-2 hidden-sm hidden-xs"><script src="js/ads_banner.js"></script></div>
-    </div>
-    </div>
-    <div class="container">
-          <!-- #BeginEditable "Body" -->
-
-
-
-<div class="row"><h1>Home</h1></div>
-<div class="row">
-<!--[ COL1 ]-->	
-<?php 
-
-	if($_GET['i'] == "successp"){
-		echo '<div class="alert alert-success alert-dismissable" role="alert">
-		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
-		<span class="sr-only">Close</span></button>
-		<span class="glyphicon glyphicon-ok"></span> <strong>Uploaded!</strong></div>';
-}elseif($_GET['i'] == "failp"){
-		echo '<div class="alert alert-warning alert-dismissable" role="alert">
-		<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span>
-		<span class="sr-only">Close</span></button>
-		<span class="glyphicon glyphicon-remove"></span> <strong>Something went wrong!</strong></div>';
-};?>
-	<div class="col-md-4">
-	<div class="panel panel-default">
-		<div class="panel-heading"><?php echo $profile['username']; ?></div>
-			<div class="panel-body">
-			<img class="img-responsive img-rounded" src="<?php echo $propic;?>" alt="<?php echo $profile['username']; ?>'s Display Picture"><br>
-			<p><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chg-prof-pic">Upload Profile Picture</button>
-</p>
-			<p>Email: <a href="mailto:<?php echo $profile['email']; ?>"><?php echo $profile['email']; ?></a><br>
-			</p>
-			<span class="hidden-xs" ><label>Share</label> <input value="<?php echo $http . $_SERVER['HTTP_HOST'] . "/" . $user['username']; ?>"></span>
-			</div>
-	</div>
-	</div>
-<!--[ COL2 ]-->
-	<div class="col-md-4">
-	<div class=" panel panel-default">
-		<div class="panel-heading">Profile</div>
-			<div class="panel-body">
-			<span class="glyphicon glyphicon-user"></span> <?php echo $profile['username'];?><br>
-				 <a href="editprofile.php"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a><br>
-				 <a href="/<?php echo $profile['username'];?>"><span class="glyphicon glyphicon-user"></span> View Profile</a><br>
-		         <a href="messages.php"><del><span class="glyphicon glyphicon-envelope"></span> Messages</del></a><br>
-		         <a href="logout.php"><span class="glyphicon glyphicon-off"></span> Logout</a><br>
-
-			</div>
-	</div>
-	</div>
-<!--[ COL3 ]-->
-<div class="col-md-4">
-<!--[ SpeedyAds ]-->
-<script src="js/ads_homebox.js"></script>
-</div>
-
-
-
-    </div>
-
-<!-- Upload pictures  -->
-<div class="modal fade" id="chg-prof-pic" tabindex="-1" role="dialog" aria-labelledby="Change Profile Pic" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Change Your Profile Picture</h4>
-      </div>
-      <img class="img-responsive" alt="Current Display Picture" src="<?php echo $profile['profilepic'];?>">
-      <form action="uploading.php?rdr=home" method="post" enctype="multipart/form-data" >
-      <div class="modal-body">
-        <div class="form-group">
-        <label class="label" for="chg-propic">File Upload</label>
-        <input id="chg-propic" name="chg-propic" type="file" accept="img/*" class="">
-        <label>Caption</label><br>
-		<input class="input-lg col-lg-12 col-md-12 col-sm-12 col-xs-12" placeholder="Type a Caption for the image here..." name="caption"><br>
-        <label for="chg-dp">
-        <input type="checkbox" value="1" name="chg-dp"> Make the new image my display picture <span class="glyphicon glyphicon-question-sign" title="Your Picture that is shown in search results and on your profile"></span>
-        </label>
-
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-primary">Save</button>
-        
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-
-      <!-- #EndEditable -->
-</div>
-<div class="container">
-      <hr>
-     
-
-      <footer>
-        <p>&copy; Wispr Productions 2014</p>
-        <a href="#" class="disabled">Privacy</a> - <a href="#" class="disabled">T&amp;C</a> - <a href="#" class="disabled">Facebook</a> - <a href="#" class="disabled">Twitter</a>
-      </footer> 
-    </div> <!-- /container -->        
-	<script src="js/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/plugins.js"></script>
-        <script src="js/main.js"></script>
-        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
-        <script>
-        $(".alert-message").alert();
-			window.setTimeout(function() { $(".alert-message").alert('close'); }, 5000);
-		</script>
-
-        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-			<script>
-			  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			
-			  ga('create', 'UA-56127426-1', 'auto');
-			  ga('send', 'pageview');
-			</script>    
-			<script>
-			(adsbygoogle = window.adsbygoogle || []).push({});
-			</script>
-
-</body>
-<!-- #EndTemplate -->
+        </main>
+        <footer class="blue page-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col m12">
+                        <h5 class="white-text">Wispr<em>Beta</em></h5>
+                        <p class="grey-text text-lighten-4">Host your own wispr and contribute on <a class="grey-text text-lighten-3" href="https://github.com/<?php print $user['username']; ?>/wispr">Github</a></p>
+                    </div>
+                    <div class="col m4">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="grey-text text-lighten-3" href="https://github.com/<?php print $user['username']; ?>/wispr"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="white" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#">Privacy</a></li>
+                            <li><a class="grey-text text-lighten-3" href="#">T&amp;C</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    &copy; 2012-2019 Wispr
+                </div>
+            </div>
+        </footer>  
+        <script src="js/activator.js"></script>    
+    </body>
 </html>

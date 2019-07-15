@@ -57,15 +57,15 @@ else {
 		 		$stmt2->execute();
 		 		$uploadedok = 1;
 					if($uploadedok == 1){ 
-						header("Location: pictures.php?id=" . $profile['username'] . "&i=success");} //success pics rdr
+						header("Location: pictures.php?id=" . $profile['username'] . "&i=successp");} //success pics rdr
 										
 			        else{
-			        	header("Location: pictures.php?id=" . $profile['username'] . "&i=fail");} //Success home rdr
+			        	header("Location: pictures.php?id=" . $profile['username'] . "&i=failp");} //Success home rdr
 		    } //end if2.1
 	if($rdr == "home"){ 
-		header("Location: home.php?i=success");}
+		header("Location: home.php?i=successp");}
 	 if($rdr == "pics"){ 
-		header("Location: pictures.php?id=" . $profile['username'] . "&i=success");}}//end if2
+		header("Location: pictures.php?id=" . $profile['username'] . "&i=successp");}}//end if2
     else {
         header("Location: home.php?i=failp");}//FAIL
     }; 

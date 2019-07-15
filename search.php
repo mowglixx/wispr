@@ -1,10 +1,8 @@
 <?php require('core.common.php');
 //Search page php
-$sq		= htmlspecialchars($_GET['q'], ENT_QUOTES);
-
-$query 	= "SELECT username, disp_name, email FROM users WHERE username LIKE '{sq}' OR "; 
-$stmt = $db->prepare($query); 
-$viewprofile = $stmt->fetchAll();	 	
+$sq		= htmlspecialchars($_GET['q'], ENT_QUOTES); 
+$stmt = $db->query("SELECT username, disp_name, profilepic FROM users WHERE (username LIKE '%{$sq}%' OR disp_name LIKE '%{$sq}%' OR email LIKE '%{$sq}%');"); 
+$viewprofile['search'] = $stmt->fetch(PDO::FETCH_ASSOC);	 	
 ?>
 <!DOCTYPE html>
 <html class="no-js" xmlns="http://www.w3.org/1999/xhtml">
@@ -49,9 +47,9 @@ body {
         </div>
         <div class="navbar-collapse collapse">
         <div class="center-block">
-        <form action="search.php" method="get" class="navbar-form navbar-left" role="search">
+        <form action="search.php" method="post" class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control col-lg-12 col-md-12 col-sm-12 disabled" placeholder="Search..." name="q" disabled="disabled">
+          <input type="text" class="form-control col-lg-12 col-md-12 col-sm-12" placeholder="Search..." name="q">
         </div>
       </form>
       </div>
@@ -86,11 +84,13 @@ body {
 
 	<div class="container">
 <pre>
-<?php print_r($viewprofile);?>
+<?php 
+print_r($viewprofile);
+?>
 </pre>
 <h1>Search</h1>
 	<div class="col-lg-10 col-md-10 col-sm-10">
-	<p class="lead">Here are your results for <strong>"<?php echo $sq; ?>"</strong></p>
+	<p class="lead">Here are your results for <em>"<?php echo $sq; ?>"</em></p>
 		
 	<?php foreach($viewprofile as $row): ?>
 	 <?php //-------------!HELPERS!----------------//
