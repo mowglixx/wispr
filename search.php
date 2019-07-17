@@ -1,8 +1,8 @@
 <?php require('core.common.php');
 //Search page php
-$sq		= htmlspecialchars($_GET['q'], ENT_QUOTES); 
-$stmt = $db->query("SELECT username, disp_name, profilepic FROM users WHERE (username LIKE '%{$sq}%' OR disp_name LIKE '%{$sq}%' OR email LIKE '%{$sq}%');"); 
-$viewprofile['search'] = $stmt->fetch(PDO::FETCH_ASSOC);	 	
+$sq		= htmlspecialchars($_POST['q'], ENT_QUOTES); 
+$stmt = $db->query("SELECT `username`, disp_name, `title`, `profilepic` FROM users WHERE (`username` LIKE '%{$sq}%') OR (`disp_name` LIKE '%{$sq}%') OR (`email` LIKE '%{$sq}%');"); 
+$viewprofile['user'] = $stmt->fetchAll(PDO::FETCH_ASSOC);	 	
 ?>
 <!DOCTYPE html>
 <html class="no-js" xmlns="http://www.w3.org/1999/xhtml">
@@ -83,20 +83,23 @@ body {
 
 
 	<div class="container">
+  <button data-toggle="collapse" data-target="#code">show dev console</button>
+<div id="code" class="collapse">
 <pre>
 <?php 
-print_r($viewprofile);
+var_dump($viewprofile);
 ?>
 </pre>
+</div>
 <h1>Search</h1>
 	<div class="col-lg-10 col-md-10 col-sm-10">
 	<p class="lead">Here are your results for <em>"<?php echo $sq; ?>"</em></p>
 		
-	<?php foreach($viewprofile as $row): ?>
+	<?php foreach($viewprofile['user'] as $row): ?>
 	 <?php //-------------!HELPERS!----------------//
 		    //Empty Profile pic, displays default display pic
 		    if(empty($row['profilepic'])){
-			$propic = "img/DefaultUserImg.jpg";}
+			$propic = "https://picsum.photos/500/500/?random=".random_int(0,1000);}
 			elseif(!empty($row['profilepic'])) {
 			$propic = $row['profilepic'];
 			};
@@ -111,7 +114,7 @@ print_r($viewprofile);
     <a class="media-left media-middle" href="/<?php echo $row['username'];?>"><img class="media-img" src="<?php echo $propic; ?>" alt="display picture of <?php echo $dispname ?>"></a>
   	<div class="media-body">
   	<h4 class="media-heading"><a href="/<?php echo $row['username'];?>"><?php echo $dispname;?></a></h4>
-  	<a href="#"><del>Message</del></a> - <a href="pictures.php?id=<?php echo $row['username'];?>">Pictures</a>
+  	<?php echo $row['title'];?>
   	</div>
   </div>
 	<?php endforeach; ?>

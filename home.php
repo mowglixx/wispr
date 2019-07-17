@@ -7,7 +7,7 @@ require('core.common.php');
       
 //Empty Profile pic, displays default display pic
     if(empty($profile['profilepic'])){
-        $propic = "img/DefaultUserImg.jpg";}
+        $propic = "https://picsum.photos/500/500/?random=".random_int(0,1000);}
     elseif(!empty($profile['profilepic'])) {
         $propic = $profile['profilepic'];
     };
@@ -24,7 +24,7 @@ require('core.common.php');
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 		<title>Wispr - <?php print $user['username']; ?></title>
-        <meta name="description" content="">
+        <meta name="description" content="<?php print $user['username']; ?>'s home page on wispr'">
         <!--Let browser know website is optimized for mobile-->
             <meta name="viewport" content="width=device-width, initial-scale=1.0"/>    
         
@@ -49,23 +49,12 @@ require('core.common.php');
         </ul>
         <nav>
             <div class="nav-wrapper blue">
-                <div class="container">
+                <div class="container"> 
                     <a class="brand-logo center" href="home.php">Wispr <em>Beta</em></a>
                     <ul class="right">
                         <li><a href="index.php"> Home</a></li>
                         <li><a class="dropdown-trigger" href="#!" data-target="profilemenu"><?php print $user['username']; ?><i class="material-icons right">arrow_drop_down</i></a></li>
                     </ul>
-
-                    <!--
-                        Fucks stuff up for navbar WIP
-                        <form action="search.php" method="get">
-                            <div class="input-field">
-                                <input id="search" type="search" name="q" required>
-                                <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-                                <i class="material-icons">close</i>
-                            </div>
-                    </form> 
-                    -->
                 </div>
             </div>
         </nav>
@@ -79,6 +68,13 @@ require('core.common.php');
             };
         ?>
         <div class="container">
+            <form action="search.php" method="post">
+                <div class="input-field">
+                    <input id="search" type="search" name="q" required>
+                    <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </form>
             <div class="row">
                 <!--[ COL1 ]-->	
                     <div class="col s12 m4">
@@ -89,7 +85,7 @@ require('core.common.php');
                                 <a class="btn-floating halfway-fab waves-effect waves-light blue modal-trigger tooltipped" data-position="left" data-tooltip="Change proile picture" href="#chg-prof-pic"><i class="material-icons">edit</i></a>    
                             </div>
                             <div class="card-content">
-                                text here
+                                If you don&apos;t have a display picture one will be provided for you!
                             </div>
                         </div>
                     </div>
@@ -123,8 +119,8 @@ require('core.common.php');
                                             <span>Browse</span>
                                             <input name="chg-propic" type="file" accept="img/*">
                                         </div>
-                                        <div class = "file-path-wrapper">
-                                            <input class="file-path validate" type = "text" placeholder="Upload file">
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
                                         </div>
                                     </div>
                                     <div class="row">
