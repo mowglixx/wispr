@@ -14,5 +14,6 @@
     $stmt->bindValue(':id', $id, PDO::PARAM_STR);
  	$stmt->execute();
  	if($stmt->execute()){
-header("Location: editprofile.php?p=success");};
+        header("Location: editprofile.php?p=success");
+    };
 

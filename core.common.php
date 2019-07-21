@@ -2,7 +2,6 @@
 
     // These variables define the connection information for your MySQL database 
     $username = "USER"; 
-    $password = "PASS"; 
     $host = "DBIP"; 
     $dbname = "DBNM";  
     // UTF-8 is a character encoding scheme that allows you to conveniently store 
